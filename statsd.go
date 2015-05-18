@@ -9,14 +9,13 @@ import (
 
 type Client struct {
 	Enabled bool
-	Host    string
-	Port    int
+	addr    string
 	Prefix  string
 	conn    net.Conn
 }
 
-func NewClient(enabled bool, host string, port int, prefix string) *Client {
-	client := Client{Enabled: enabled, Host: host, Port: port, Prefix: prefix}
+func NewClient(enabled bool, addr string, prefix string) *Client {
+	client := Client{Enabled: enabled, addr: addr, Prefix: prefix}
 	err := client.Open()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -27,8 +26,7 @@ func NewClient(enabled bool, host string, port int, prefix string) *Client {
 
 // Open udp connection
 func (client *Client) Open() (err error) {
-	addr := fmt.Sprintf("%s:%d", client.Host, client.Port)
-	conn, err := net.Dial("udp", addr)
+	conn, err := net.Dial("udp", client.addr)
 	client.conn = conn
 	return
 }
