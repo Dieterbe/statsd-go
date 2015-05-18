@@ -91,3 +91,9 @@ func (client *Client) Send(metric, value, metrictype string, sampleRate float32)
 	}
 	fmt.Fprintf(client.conn, msg)
 }
+func (client *Client) SendRaw(buf []byte) {
+	if !client.Enabled {
+		return
+	}
+	client.conn.Write(buf)
+}
