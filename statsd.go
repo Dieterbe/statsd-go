@@ -14,14 +14,13 @@ type Client struct {
 	conn    net.Conn
 }
 
-func NewClient(enabled bool, addr string, prefix string) *Client {
-	client := Client{Enabled: enabled, addr: addr, Prefix: prefix}
-	err := client.Open()
-	if err != nil {
-		fmt.Println(err.Error())
+func NewClient(enabled bool, addr string, prefix string) (*Client, error) {
+	if addr == "" {
+		addr = "localhost:8125"
 	}
 	rand.Seed(time.Now().UnixNano())
-	return &client
+	client := Client{Enabled: enabled, addr: addr, Prefix: prefix}
+	return &client, client.Open()
 }
 
 // Open udp connection
