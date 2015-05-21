@@ -55,6 +55,11 @@ func (client *Client) Increment(metric string) {
 	client.Send(metric, "1", "c", 1)
 }
 
+// Increment counter
+func (client *Client) IncrementValue(metric string, val int64) {
+	client.Send(metric, fmt.Sprintf("%d", val), "c", 1)
+}
+
 // Increment counter, sampled
 func (client *Client) IncrementWithSampling(metric string, sampleRate float32) {
 	client.Send(metric, "1", "c", sampleRate)
