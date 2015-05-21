@@ -47,7 +47,7 @@ func (client *Client) TimingSampled(metric string, val int64, sampleRate float32
 
 // like Timing but for a duration type, expressed in milliseconds
 func (client *Client) TimeDuration(metric string, d time.Duration) {
-	client.Send(metric, fmt.Sprintf("%d", d.Nanoseconds()/10e6), "ms", 1)
+	client.Send(metric, fmt.Sprintf("%d", d.Nanoseconds()/1e6), "ms", 1)
 }
 
 // Increment counter
