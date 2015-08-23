@@ -14,6 +14,7 @@ type Client struct {
 	conn    net.Conn
 }
 
+// NewClient creates a statsd client. specify prefix ending on a dot if that's the behavior you want
 func NewClient(enabled bool, addr string, prefix string) (*Client, error) {
 	if addr == "" {
 		addr = "localhost:8125"
